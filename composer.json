@@ -1,0 +1,92 @@
+{
+  "name": "bifikdev/yii2template",
+  "description": "Yii2 Site Template",
+  "homepage": "https://bifikdev.ru",
+  "type": "project",
+  "license": "BiFiKDev",
+  "minimum-stability": "stable",
+  "version": "2.1.8",
+  "revision": "20230526",
+  "authors": [
+    {
+      "name": "Yury Pavlushchenko",
+      "email": "iam@bifik.ru",
+      "homepage": "https://bifik.ru",
+      "role": "Main Developer"
+    }
+  ],
+  "require": {
+    "php": ">=7.1",
+    "yiisoft/yii2": "~2.0.45",
+    "yiisoft/yii2-bootstrap4": "~2.0.9",
+    "yiisoft/yii2-swiftmailer": "~2.0.3",
+    "yiisoft/yii2-httpclient": "*",
+    "yiisoft/yii2-queue": "*",
+    "yii2mod/yii2-markdown": "*",
+    "yii2tech/filedb": "*",
+    "rmrevin/yii2-fontawesome": "*",
+    "xpaw/php-source-query-class": "*",
+    "xpaw/php-minecraft-query": "*",
+    "telegram-bot/api": "*",
+    "antson/icq-bot": "*",
+    "creocoder/yii2-flysystem": "0.8.*",
+    "jdenticon/jdenticon": "*",
+    "technicalguru/vault": "~1.0.7",
+    "nesbot/carbon": "*"
+  },
+  "require-dev": {
+    "yiisoft/yii2-debug": "~2.1.0",
+    "yiisoft/yii2-gii": "~2.1.0",
+    "yiisoft/yii2-faker": "~2.0.0",
+    "codeception/codeception": "^4.0",
+    "codeception/verify": "~0.5.0 || ~1.1.0",
+    "codeception/specify": "~0.4.6",
+    "symfony/browser-kit": ">=2.7 <=4.2.4",
+    "codeception/module-filesystem": "^1.0.0",
+    "codeception/module-yii2": "^1.0.0",
+    "codeception/module-asserts": "^1.0.0"
+  },
+  "config": {
+    "allow-plugins": {
+      "yiisoft/yii2-composer": true
+    },
+    "process-timeout": 1800,
+    "fxp-asset": {
+      "enabled": false
+    },
+    "platform": {
+      "php": "7.4.24"
+    }
+  },
+  "scripts": {
+    "post-install-cmd": [
+      "yii\\composer\\Installer::postInstall"
+    ],
+    "post-create-project-cmd": [
+      "yii\\composer\\Installer::postCreateProject",
+      "yii\\composer\\Installer::postInstall"
+    ]
+  },
+  "extra": {
+    "yii\\composer\\Installer::postCreateProject": {
+      "setPermission": [
+        {
+          "runtime": "0777",
+          "web/assets": "0777",
+          "yii": "0755"
+        }
+      ]
+    },
+    "yii\\composer\\Installer::postInstall": {
+      "generateCookieValidationKey": [
+        "config/web.php"
+      ]
+    }
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://asset-packagist.org"
+    }
+  ]
+}
