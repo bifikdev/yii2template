@@ -1,6 +1,6 @@
 FROM php:7.4.33-apache
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update -y && apt-get install -y \
         curl \
         wget \
         git \
@@ -16,6 +16,7 @@ RUN apt-get update && apt-get install -y \
         libcurl4-openssl-dev \
         pkg-config \
         libssl-dev \
+        libzip-dev \
     && ACCEPT_EULA=Y \
         DEBIAN_FRONTEND=noninteractive \
         apt-get install \
@@ -25,6 +26,7 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure \
         gd \
     && docker-php-ext-install \
+        zip \
         gd \
         mysqli \
         pdo_mysql \

@@ -5,31 +5,33 @@ $config = [
     'basePath' => dirname(__DIR__),
     'language' => 'ru_RU',
     'controllerNamespace' => 'app\commands',
-    'bootstrap' => require __DIR__ . '/configs/_bootstrap.php',
-    'aliases' => require __DIR__ . '/configs/_aliases.php',
-    'modules' => require __DIR__ . '/configs/_modules.php',
+    'bootstrap' => require __DIR__ . '/main/_bootstrap.php',
+    'aliases' => require __DIR__ . '/main/_aliases.php',
+    'modules' => require __DIR__ . '/main/_modules.php',
     'components' => [
-        'cache' => [
-            'class' => \yii\caching\FileCache::class,
-        ],
         'log' => [
-            'targets' => require __DIR__ . '/configs/_logs.php',
+            'targets' => require __DIR__ . '/components/_logs.php',
         ],
-        'queue' => [
-            'class' => \yii\queue\db\Queue::class,
-            'mutex' => \yii\mutex\MysqlMutex::class,
-            'db' => 'db',
-            'tableName' => '{{%queue}}',
-            'channel' => 'default',
-        ],
-        'filedb' => [
-            'class' => \yii2tech\filedb\Connection::class,
-            'path' => '@app/models/static',
-        ],
-        'db' => require __DIR__ . '/configs/_db.php',
+
+        'storage' => require __DIR__ . '/components/_filestorage.php',
+        'cache' => require __DIR__ . '/components/_cache.php',
+//        'memcache' => require __DIR__ . '/configs/_memcached.php',
+        'db' => require __DIR__ . '/components/_db.php',
+        'lite' => require __DIR__ . '/components/_sqlite.php',
+        'mailer' => require __DIR__ . '/components/_mailer.php',
+        'filedb' => require __DIR__ . '/components/_fileDB.php',
+        'queue' => require __DIR__ . '/components/_queue_file.php',
+
         'authManager' => [
             'class' => \yii\rbac\PhpManager::class,
+            'defaultRoles' => ['guest'],
         ],
+
+        // Информация по скрипту
+        'ScriptInfo' => [
+            'class' => \app\components\ScriptInfo::class,
+        ],
+
     ],
     'params' => require __DIR__ . '/params.php',
     'controllerMap' => [
@@ -38,19 +40,11 @@ $config = [
             'migrationPath' => null,
             'migrationNamespaces' => [
                 'yii\queue\db\migrations', // Миграции модуля queue
-                'app\migrations', // Миграции из директории migrations
-                'app\modules\main\migrations', // Миграции из модуля main
-                'app\modules\users\migrations', // Миграции из модуля users
-                'app\modules\news\migrations', // Миграции из модуля news
-                'app\modules\forum\migrations', // Миграции из модуля forum
-//                'app\modules\launcher\migrations', // Миграции из модуля launcher
-//                'app\modules\external\migrations', // Миграции из модуля external
-//                'app\modules\tasks\migrations', // Миграции из модуля tasks
+                'app\migrations\engine', // Миграции для движка (таблицы, триггеры)
+                'app\migrations\data', // Миграции для наполнения данных
             ],
         ],
     ],
 ];
-
-unset($vault);
 
 return $config;

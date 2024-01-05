@@ -32,7 +32,7 @@ tests/_support/_generated
 #vagrant folder
 /.vagrant
 
-/config/db.php
-/config/params.php
-
+# App ignore dir and file
 /secrets/secrets.json
+.env
+/runtime

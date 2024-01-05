@@ -7,11 +7,21 @@ services:
     environment:
       - APACHE_RUN_USER=#1000
     volumes:
-      - ${WEB_ROOT_PATH}:/var/www/html
+      - ${WEB_ROOT_PATH}:${WEB_WORKING_DIR}
     working_dir: ${WEB_WORKING_DIR}
     ports:
       - ${WEB_PORT}:80
-#    command: php yii migrate/up
+    links:
+      - mysql
+      - memcached
+    depends_on:
+      mysql:
+        condition: "service_started"
+      memcached:
+        condition: "service_started"
+      composer:
+        condition: "service_completed_successfully"
+#    command: "php yii migrate --interactive = 0"
 
   mysql:
     image: mysql:5.7
@@ -34,12 +44,22 @@ services:
       PMA_PORT: ${MYSQL_PORT}
     ports:
       - ${PHPMYADMIN_PORT}:80
+    depends_on:
+      mysql:
+        condition: "service_started"
 
   composer:
     image: composer:1.9.3
     volumes:
       - ${WEB_ROOT_PATH}:/var/www/html
     working_dir: ${WEB_WORKING_DIR}
-    command: composer install
+#    command: composer install
+    command: composer install --no-dev
 #    command: composer update
 
+  memcached:
+    image: memcached:latest
+    ports:
+      - ${MEMCACHED_PORT}:11211
+    command:
+      - '--memory-limit=64'
