@@ -3,21 +3,29 @@
   "description": "Yii2 Site Template",
   "homepage": "https://bifikdev.ru",
   "type": "project",
-  "license": "BiFiKDev",
+  "license": "TeapodSoft",
   "minimum-stability": "stable",
-  "version": "2.1.8",
-  "revision": "20230526",
+  "version": "1.1.1",
+  "revision": "20240105",
   "authors": [
     {
       "name": "Yury Pavlushchenko",
       "email": "iam@bifik.ru",
       "homepage": "https://bifik.ru",
       "role": "Main Developer"
+    },
+    {
+      "name": "Teapod Soft",
+      "email": "dev@teapodsoft.ru",
+      "homepage": "https://teapodsoft.ru",
+      "role": "Develop Team"
     }
   ],
   "require": {
-    "php": ">=7.1",
+    "php": ">=7.4",
     "yiisoft/yii2": "~2.0.45",
+    "yiisoft/yii2-debug": "~2.1.0",
+    "yiisoft/yii2-gii": "~2.1.0",
     "yiisoft/yii2-bootstrap4": "~2.0.9",
     "yiisoft/yii2-swiftmailer": "~2.0.3",
     "yiisoft/yii2-httpclient": "*",
@@ -32,11 +40,12 @@
     "creocoder/yii2-flysystem": "0.8.*",
     "jdenticon/jdenticon": "*",
     "technicalguru/vault": "~1.0.7",
+    "ramsey/uuid": "*",
+    "vlucas/phpdotenv": "^3.3",
+    "webonyx/graphql-php": "*",
     "nesbot/carbon": "*"
   },
   "require-dev": {
-    "yiisoft/yii2-debug": "~2.1.0",
-    "yiisoft/yii2-gii": "~2.1.0",
     "yiisoft/yii2-faker": "~2.0.0",
     "codeception/codeception": "^4.0",
     "codeception/verify": "~0.5.0 || ~1.1.0",
