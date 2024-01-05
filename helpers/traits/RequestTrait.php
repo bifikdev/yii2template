@@ -3,6 +3,7 @@
 namespace app\helpers\traits;
 
 use Yii;
+use yii\web\HeaderCollection;
 
 /**
  * Trait RequestTrait
@@ -53,11 +54,12 @@ trait RequestTrait
 
     /**
      * @param string $param
-     * @return array|mixed
+     * @param $default
+     * @return array|mixed|object
      */
-    protected function getRequestPostParam(string $param): array
+    protected function getRequestPostParam(string $param, $default = 0)
     {
-        return $this->getRequest()->post($param);
+        return $this->getRequest()->post($param, $default);
     }
 
     /**
@@ -78,11 +80,12 @@ trait RequestTrait
 
     /**
      * @param string $param
+     * @param $default
      * @return array|mixed
      */
-    protected function getRequestGetParam(string $param): array
+    protected function getRequestGetParam(string $param, $default = 0)
     {
-        return $this->getRequest()->get($param);
+        return $this->getRequest()->get($param, $default);
     }
 
     /**
@@ -166,6 +169,14 @@ trait RequestTrait
     protected function getRequestBodyParam(string $param)
     {
         return $this->getRequest()->getBodyParam($param);
+    }
+
+    /**
+     * @return HeaderCollection
+     */
+    protected function getHeaders(): HeaderCollection
+    {
+        return $this->getRequest()->getHeaders();
     }
 
 }
